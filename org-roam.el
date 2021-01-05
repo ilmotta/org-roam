@@ -1271,7 +1271,8 @@ file."
   (when (org-roam--org-roam-file-p)
     (setq org-roam-last-window (get-buffer-window))
     (run-hooks 'org-roam-file-setup-hook) ; Run user hooks
-    (org-roam--setup-title-auto-update)
+    (when (bound-and-true-p org-roam-rename-file-on-title-change)
+      (org-roam--setup-title-auto-update))
     (add-hook 'post-command-hook #'org-roam-buffer--update-maybe nil t)
     (add-hook 'before-save-hook #'org-roam-link--replace-link-on-save nil t)
     (add-hook 'after-save-hook #'org-roam-db-update nil t)
